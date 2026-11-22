@@ -6,7 +6,7 @@ interface Props {
 }
 
 export function PublicFooter({ locale = "en" }: Props) {
-  const SUPPORTED: TrustLocale[] = ["en", "ru", "ar", "tr", "de", "fr", "es"];
+  const SUPPORTED: TrustLocale[] = ["en", "ru", "ar", "tr", "de", "fr", "es", "pl"];
   const loc: TrustLocale = SUPPORTED.includes(locale as TrustLocale) ? (locale as TrustLocale) : "en";
   const t = getTrustShared(loc);
 

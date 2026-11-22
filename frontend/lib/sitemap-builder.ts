@@ -10,8 +10,10 @@ const BACKEND_URL =
   process.env.NEXT_PUBLIC_API_URL?.replace(/^\//, `${SITE_URL}/`) ??
   "http://localhost:8000/api/v1";
 
-export const LOCALES = ["en", "ru", "ar", "tr", "de", "fr", "es"] as const;
+export const LOCALES = ["en", "ru", "ar", "tr", "de", "fr", "es", "pl"] as const;
 export type Locale = (typeof LOCALES)[number];
+/** Locales that have translated dynamic content (news, learn, categories). UI-only locales are excluded. */
+export const CONTENT_LOCALES: Locale[] = LOCALES.filter((l) => l !== "pl");
 
 export type ArticleSitemapEntry = {
   slug: string;
@@ -229,6 +231,9 @@ export async function buildLanguageSitemap(locale: Locale): Promise<string> {
   ]);
 
   const entries: string[] = [];
+  // Locales without translated dynamic content (e.g. pl) only get hub/static pages,
+  // so untranslated English pages are not advertised under /<locale>/…
+  const hasContent = (CONTENT_LOCALES as readonly string[]).includes(locale);
 
   // ── Articles index page ─────────────────────────────────────────────────
   entries.push(
@@ -264,6 +269,7 @@ export async function buildLanguageSitemap(locale: Locale): Promise<string> {
   // ── Category pages ──────────────────────────────────────────────────────
   const categories = [...new Set(articles.map((a) => a.category))];
   for (const cat of categories) {
+    if (!hasContent) continue; // no translated content in this locale yet
     const path = `/articles/category/${cat}`;
     entries.push(
       urlEntry({
@@ -271,7 +277,7 @@ export async function buildLanguageSitemap(locale: Locale): Promise<string> {
         lastmod: now,
         priority: 0.7,
         changefreq: "weekly",
-        hreflang: hreflangTags(path, [...LOCALES]),
+        hreflang: hreflangTags(path, [...CONTENT_LOCALES]),
       })
     );
   }
@@ -304,6 +310,7 @@ export async function buildLanguageSitemap(locale: Locale): Promise<string> {
     })
   );
   for (const item of newsItems) {
+    if (!hasContent) continue; // no translated content in this locale yet
     const path = `/news/${item.slug}`;
     const lastmod = item.fetched_at ? item.fetched_at.split("T")[0] : now;
     entries.push(
@@ -312,7 +319,7 @@ export async function buildLanguageSitemap(locale: Locale): Promise<string> {
         lastmod,
         priority: 0.75,
         changefreq: "weekly",
-        hreflang: hreflangTags(path, [...LOCALES]),
+        hreflang: hreflangTags(path, [...CONTENT_LOCALES]),
       })
     );
   }
@@ -366,32 +373,35 @@ export async function buildLanguageSitemap(locale: Locale): Promise<string> {
 
   // Individual glossary term pages (EN canonical; other locales get same content)
   for (const term of learnGlossary) {
+    if (!hasContent) continue; // no translated content in this locale yet
     entries.push(
       urlEntry({
         url: localizedUrl(`/learn/glossary/${term.slug}`, locale),
         lastmod: now,
         priority: 0.6,
         changefreq: "monthly",
-        hreflang: hreflangTags(`/learn/glossary/${term.slug}`, LEARN_LOCALES),
+        hreflang: hreflangTags(`/learn/glossary/${term.slug}`, [...CONTENT_LOCALES]),
       })
     );
   }
 
   // Individual topic pages
   for (const topic of learnTopics) {
+    if (!hasContent) continue; // no translated content in this locale yet
     entries.push(
       urlEntry({
         url: localizedUrl(`/learn/topics/${topic.slug}`, locale),
         lastmod: now,
         priority: 0.7,
         changefreq: "monthly",
-        hreflang: hreflangTags(`/learn/topics/${topic.slug}`, LEARN_LOCALES),
+        hreflang: hreflangTags(`/learn/topics/${topic.slug}`, [...CONTENT_LOCALES]),
       })
     );
   }
 
   // Individual lesson pages — highest priority for content indexing
   for (const lesson of learnLessons) {
+    if (!hasContent) continue; // no translated content in this locale yet
     const path = `/learn/topics/${lesson.module_slug}/${lesson.lesson_slug}`;
     entries.push(
       urlEntry({
@@ -399,20 +409,21 @@ export async function buildLanguageSitemap(locale: Locale): Promise<string> {
         lastmod: now,
         priority: 0.75,
         changefreq: "monthly",
-        hreflang: hreflangTags(path, LEARN_LOCALES),
+        hreflang: hreflangTags(path, [...CONTENT_LOCALES]),
       })
     );
   }
 
   // Individual public drug pages
   for (const drug of learnDrugs) {
+    if (!hasContent) continue; // no translated content in this locale yet
     entries.push(
       urlEntry({
         url: localizedUrl(`/learn/drugs/${drug.slug}`, locale),
         lastmod: now,
         priority: 0.65,
         changefreq: "monthly",
-        hreflang: hreflangTags(`/learn/drugs/${drug.slug}`, LEARN_LOCALES),
+        hreflang: hreflangTags(`/learn/drugs/${drug.slug}`, [...CONTENT_LOCALES]),
       })
     );
   }
@@ -439,13 +450,14 @@ export async function buildLanguageSitemap(locale: Locale): Promise<string> {
     })
   );
   for (const pet of learnPets) {
+    if (!hasContent) continue; // no translated content in this locale yet
     entries.push(
       urlEntry({
         url: localizedUrl(`/learn/pets/${pet.slug}`, locale),
         lastmod: now,
         priority: 0.75,
         changefreq: "monthly",
-        hreflang: hreflangTags(`/learn/pets/${pet.slug}`, LEARN_LOCALES),
+        hreflang: hreflangTags(`/learn/pets/${pet.slug}`, [...CONTENT_LOCALES]),
       })
     );
   }
@@ -549,7 +561,7 @@ export async function buildLanguageSitemap(locale: Locale): Promise<string> {
         hreflang: [
           `      <xhtml:link rel="alternate" hreflang="x-default" href="${esc(`${SITE_URL}/exams/gulf`)}"/>`,
           `      <xhtml:link rel="alternate" hreflang="en" href="${esc(`${SITE_URL}/exams/gulf`)}"/>`,
-          ...["ru", "ar", "tr", "de", "fr", "es"].map(
+          ...["ru", "ar", "tr", "de", "fr", "es", "pl"].map(
             (l) => `      <xhtml:link rel="alternate" hreflang="${l}" href="${esc(`${SITE_URL}/${l}/gulf`)}"/>`
           ),
         ].join("\n"),

@@ -10,7 +10,7 @@ import { PawPrint, Dog, Cat, Rabbit, Bird, Bug } from "lucide-react";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://medmind.pro";
 const API_URL = process.env.INTERNAL_API_URL ?? process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000/api/v1";
-const SUPPORTED = ["en", "ru", "ar", "tr", "de", "fr", "es"];
+const SUPPORTED = ["en", "ru", "ar", "tr", "de", "fr", "es", "pl"];
 const PAGE_SIZE = 24;
 
 export const dynamic = "force-dynamic";
@@ -163,7 +163,7 @@ export async function generateMetadata({
     alternates: {
       canonical,
       languages: Object.fromEntries(
-        ["en", "ru", "ar", "tr", "de", "fr", "es"].map((l) => [
+        ["en", "ru", "ar", "tr", "de", "fr", "es", "pl"].map((l) => [
           l,
           l === "en" ? baseUrl : `${SITE_URL}/${l}${basePath}`,
         ])

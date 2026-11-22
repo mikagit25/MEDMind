@@ -73,6 +73,7 @@ export default function RegisterPage() {
     { value: "ar", label: "🇸🇦 العربية" },
     { value: "tr", label: "🇹🇷 Türkçe" },
     { value: "es", label: "🇪🇸 Español" },
+    { value: "pl", label: "🇵🇱 Polski" },
   ] as const;
 
   return (

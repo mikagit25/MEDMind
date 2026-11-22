@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { getCalc, CALC_SLUGS } from "@/components/calculators/data";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://medmind.pro";
-const LOCALES = ["en", "ru", "ar", "tr", "de", "fr", "es"];
+const LOCALES = ["en", "ru", "ar", "tr", "de", "fr", "es", "pl"];
 
 const EGFR_META = {
   title: "eGFR Calculator (CKD-EPI 2021) — MedMind AI",

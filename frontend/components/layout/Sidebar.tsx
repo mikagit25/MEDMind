@@ -23,7 +23,7 @@ const LANGS: { value: Locale; flag: string }[] = [
   { value: "en", flag: "🇬🇧" }, { value: "ru", flag: "🇷🇺" },
   { value: "de", flag: "🇩🇪" }, { value: "fr", flag: "🇫🇷" },
   { value: "ar", flag: "🇸🇦" }, { value: "tr", flag: "🇹🇷" },
-  { value: "es", flag: "🇪🇸" },
+  { value: "es", flag: "🇪🇸" }, { value: "pl", flag: "🇵🇱" },
 ];
 
 function NavIcon({ Icon }: { Icon: React.ComponentType<LucideProps> }) {

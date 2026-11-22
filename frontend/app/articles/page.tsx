@@ -11,7 +11,7 @@ import { PawPrint } from "lucide-react";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://medmind.pro";
 const API_URL = process.env.INTERNAL_API_URL ?? process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000/api/v1";
-const SUPPORTED = ["en", "ru", "ar", "tr", "de", "fr", "es"];
+const SUPPORTED = ["en", "ru", "ar", "tr", "de", "fr", "es", "pl"];
 
 const ARTICLES_TITLES: Record<string, string> = {
   en: "Medical Articles — Evidence-Based Health Information",
@@ -21,6 +21,7 @@ const ARTICLES_TITLES: Record<string, string> = {
   es: "Artículos médicos — Información de salud basada en evidencia",
   tr: "Tıbbi Makaleler — Kanıta Dayalı Sağlık Bilgisi",
   ar: "المقالات الطبية — معلومات صحية قائمة على الأدلة",
+  pl: "Artykuły medyczne — rzetelne informacje o zdrowiu oparte na dowodach",
 };
 
 export const dynamic = "force-dynamic";

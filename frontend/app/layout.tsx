@@ -11,7 +11,7 @@ import AffiliateRefTracker from "@/components/AffiliateRefTracker";
 const RTL_LOCALES = ["ar"];
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://medmind.pro";
-const SUPPORTED_LOCALES = ["en", "ru", "ar", "tr", "de", "fr", "es"];
+const SUPPORTED_LOCALES = ["en", "ru", "ar", "tr", "de", "fr", "es", "pl"];
 
 export const metadata: Metadata = {
   title: {

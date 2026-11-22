@@ -25,7 +25,7 @@ const LANG_FLAGS: Record<string, string> = {
   en: "🇺🇸", ru: "🇷🇺", ar: "🇸🇦", de: "🇩🇪", fr: "🇫🇷", es: "🇪🇸", tr: "🇹🇷",
 };
 const LANG_NAMES: Record<string, string> = {
-  en: "English", ru: "Русский", ar: "العربية", de: "Deutsch", fr: "Français", es: "Español", tr: "Türkçe",
+  en: "English", ru: "Русский", ar: "العربية", de: "Deutsch", fr: "Français", es: "Español", tr: "Türkçe", pl: "Polski",
 };
 
 const T: Record<string, Record<string, string>> = {

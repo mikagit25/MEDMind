@@ -11,7 +11,7 @@ export const dynamic = "force-dynamic";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://medmind.pro";
 const API_URL = process.env.INTERNAL_API_URL ?? process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000/api/v1";
-const SUPPORTED = ["en", "ru", "ar", "tr", "de", "fr", "es"];
+const SUPPORTED = ["en", "ru", "ar", "tr", "de", "fr", "es", "pl"];
 
 type Lang = "en" | "ru" | "ar" | "es" | "de" | "fr" | "tr";
 

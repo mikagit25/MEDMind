@@ -5,7 +5,7 @@ import { PublicFooter } from "@/components/layout/PublicFooter";
 import { getContactT } from "@/lib/trust-i18n";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://medmind.pro";
-const SUPPORTED = ["en", "ru", "ar", "tr", "de", "fr", "es"];
+const SUPPORTED = ["en", "ru", "ar", "tr", "de", "fr", "es", "pl"];
 
 export const dynamic = "force-dynamic";
 

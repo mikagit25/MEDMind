@@ -29,6 +29,7 @@ const LOCALE_LABELS: Record<string, string> = {
   de: "Deutsch",
   fr: "Français",
   es: "Español",
+  pl: "Polski",
 };
 
 
@@ -197,7 +198,7 @@ export async function generateMetadata({
   params: { slug: string };
   searchParams?: { lang?: string; locale?: string };
 }): Promise<Metadata> {
-  const SUPPORTED = ["en", "ru", "ar", "tr", "de", "fr", "es"];
+  const SUPPORTED = ["en", "ru", "ar", "tr", "de", "fr", "es", "pl"];
   const rawLocale = searchParams?.lang || searchParams?.locale;
   const locale = rawLocale && SUPPORTED.includes(rawLocale) ? rawLocale : "en";
   const article = await fetchArticle(params.slug, locale);
@@ -207,8 +208,11 @@ export async function generateMetadata({
   const title = article.og_title ?? article.title;
   const description = article.og_description ?? article.excerpt;
   const canonicalUrl = `${SITE_URL}/articles/${article.slug}`;
-  // Path-prefixed canonical so Google indexes /es/articles/slug as a distinct page
-  const currentUrl = locale !== "en"
+  // Path-prefixed canonical so Google indexes /es/articles/slug as a distinct page.
+  // If the article has no translation in this locale (the API falls back to English),
+  // point canonical at the English URL to avoid duplicate-content pages.
+  const hasTranslation = availableLocales.includes(locale);
+  const currentUrl = locale !== "en" && hasTranslation
     ? `${SITE_URL}/${locale}/articles/${article.slug}`
     : canonicalUrl;
 
@@ -520,6 +524,7 @@ const SERVER_LABELS: Record<string, Record<string, string>> = {
   ar: { articles: "المقالات", more_articles: "مقالات أخرى", all_articles: "→ كل المقالات", faq: "الأسئلة الشائعة", refs: "المراجع", disclaimer: "إخلاء المسؤولية الطبية", related: "مقالات ذات صلة", read_in: "اقرأ بـ", module: "ادرس هذا الموضوع بعمق", open_module: "→ فتح الوحدة", related_news: "آخر الأخبار حول هذا الموضوع" },
   tr: { articles: "Makaleler", more_articles: "Daha Fazla Makale", all_articles: "← Tüm makaleler", faq: "Sık Sorulan Sorular", refs: "Kaynaklar", disclaimer: "Tıbbi Sorumluluk Reddi", related: "İlgili Makaleler", read_in: "Oku:", module: "Bu konuyu derinlemesine incele", open_module: "Modülü aç →", related_news: "Bu Konuyla İlgili Son Haberler" },
   es: { articles: "Artículos", more_articles: "Más artículos", all_articles: "← Todos los artículos", faq: "Preguntas frecuentes", refs: "Referencias", disclaimer: "Aviso médico", related: "Artículos relacionados", read_in: "Leer en", module: "Estudiar este tema en profundidad", open_module: "Abrir módulo →", related_news: "Últimas noticias sobre este tema" },
+  pl: { articles: "Artykuły", more_articles: "Więcej artykułów", all_articles: "← Wszystkie artykuły", faq: "Najczęściej zadawane pytania", refs: "Źródła", disclaimer: "Zastrzeżenia medyczne", related: "Powiązane artykuły", read_in: "Czytaj w języku", module: "Zgłęb ten temat", open_module: "Otwórz moduł →", related_news: "Najnowsze wiadomości na ten temat" },
 };
 
 export default async function ArticlePage({
@@ -531,7 +536,7 @@ export default async function ArticlePage({
 }) {
   // Priority: explicit ?lang= param > cookie > default English
   // When ?lang=en is explicit, English is forced regardless of cookie
-  const SUPPORTED = ["en", "ru", "ar", "tr", "de", "fr", "es"];
+  const SUPPORTED = ["en", "ru", "ar", "tr", "de", "fr", "es", "pl"];
   const explicitLang = searchParams?.lang || searchParams?.locale;
   const cookieLocale = explicitLang ? undefined : cookies().get("medmind_locale")?.value;
   const rawLocale = explicitLang || cookieLocale;

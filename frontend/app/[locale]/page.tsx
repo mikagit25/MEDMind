@@ -16,7 +16,7 @@ const API_URL =
   process.env.NEXT_PUBLIC_API_URL ??
   "http://localhost:8000/api/v1";
 
-const SUPPORTED = ["en", "ru", "ar", "tr", "de", "fr", "es"] as const;
+const SUPPORTED = ["en", "ru", "ar", "tr", "de", "fr", "es", "pl"] as const;
 type Locale = (typeof SUPPORTED)[number];
 
 // Page meta strings per locale (static, no API needed)
@@ -28,6 +28,7 @@ const META: Record<Locale, { title: string; description: string }> = {
   es: { title: "MedMind AI — Plataforma de educación médica", description: "Aprendizaje médico impulsado por IA para médicos, estudiantes y pacientes en español." },
   tr: { title: "MedMind AI — Tıp Eğitim Platformu", description: "Doktorlar, öğrenciler ve hastalar için Türkçe yapay zeka destekli tıp eğitimi." },
   ar: { title: "MedMind AI — منصة التعليم الطبي", description: "التعلم الطبي بالذكاء الاصطناعي للأطباء والطلاب والمرضى باللغة العربية." },
+  pl: { title: "MedMind AI — Platforma edukacji medycznej", description: "Nauka medycyny wspierana przez AI dla lekarzy, studentów i pacjentów — po polsku." },
 };
 
 type ArticlePreview = {

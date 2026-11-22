@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 
 // 'en' is the default locale — no path prefix needed
-const LOCALES = ["es", "ru", "ar", "tr", "de", "fr"];
+const LOCALES = ["es", "ru", "ar", "tr", "de", "fr", "pl"];
 const LOCALE_RE = new RegExp(`^/(${LOCALES.join("|")})(\/|$)`);
 
 // SYNC-GROUP: gulf-landing + other dedicated locale pages

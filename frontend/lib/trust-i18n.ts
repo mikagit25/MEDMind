@@ -4,7 +4,7 @@
  * Used by server components that cannot access useI18n() hooks.
  */
 
-export type TrustLocale = "en" | "ru" | "ar" | "tr" | "de" | "fr" | "es";
+export type TrustLocale = "en" | "ru" | "ar" | "tr" | "de" | "fr" | "es" | "pl";
 
 export interface TrustT {
   dir: "ltr" | "rtl";
@@ -120,6 +120,17 @@ const SHARED: Record<TrustLocale, TrustT> = {
     footer_contact: "Contact",
     disclaimer_short: "For educational purposes only. Not a substitute for professional medical advice.",
   },
+  pl: {
+    dir: "ltr",
+    footer_tagline: "Medycyna zrozumiała dla każdego",
+    footer_how_it_works: "Jak to działa",
+    footer_pricing: "Cennik",
+    footer_editorial: "Polityka redakcyjna",
+    footer_about: "O nas",
+    footer_disclaimer: "Zastrzeżenia medyczne",
+    footer_contact: "Kontakt",
+    disclaimer_short: "Wyłącznie w celach edukacyjnych. Nie zastępuje profesjonalnej porady medycznej.",
+  },
   ru: {
     dir: "ltr",
     footer_tagline: "Медицина, понятная каждому",
@@ -214,6 +225,32 @@ const ABOUT: Record<TrustLocale, Omit<AboutT, keyof TrustT>> = {
     team_body: "MedMind AI was founded in 2025 by a team of physicians, software engineers, and AI researchers. We are building the infrastructure for trustworthy AI-assisted medical education.",
     cta_title: "Start Learning for Free",
     cta_btn: "Create Free Account",
+  },
+  pl: {
+    meta_title: "O MedMind AI — platforma edukacji medycznej",
+    meta_desc: "Poznaj MedMind AI: naszą misję udostępniania medycyny opartej na dowodach każdemu, nasz zespół i naszą technologię.",
+    hero_title: "Medycyna zrozumiała dla każdego, w jego języku",
+    hero_sub: "MedMind AI to platforma edukacji medycznej oparta na dowodach i wspierana przez AI — dla lekarzy, studentów, pacjentów i lekarzy weterynarii.",
+    mission_title: "Nasza misja",
+    mission_body: "Wierzymy, że dostęp do rzetelnej wiedzy medycznej nie powinien zależeć od języka, miejsca zamieszkania ani kwalifikacji zawodowych. MedMind AI łączy rygor medycyny opartej na dowodach z dostępnością sztucznej inteligencji — dostarczając zweryfikowane treści medyczne w wielu językach, interaktywne narzędzia do nauki dla profesjonalistów medycznych oraz przystępne wyjaśnienia dla pacjentów.",
+    for_whom_title: "Dla kogo jesteśmy",
+    for_whom_doctors: "Lekarze i rezydenci — moduły kliniczne, interakcje leków, treści do kształcenia ustawicznego",
+    for_whom_students: "Studenci medycyny i pielęgniarstwa — uporządkowany program, fiszki z powtórkami w odstępach, pytania testowe",
+    for_whom_patients: "Pacjenci i opiekunowie — artykuły prostym językiem, przewodniki po objawach, bez żargonu medycznego",
+    for_whom_vet: "Lekarze weterynarii — dawkowanie leków dla poszczególnych gatunków, przypadki kliniczne z weterynarii",
+    how_title: "Jak powstają nasze treści",
+    how_1_title: "1. Źródła oparte na dowodach",
+    how_1_body: "Każdy artykuł zaczyna się od recenzowanych źródeł: wytycznych klinicznych (WHO, NICE, AHA, ESC), przeglądów systematycznych i badań indeksowanych w PubMed.",
+    how_2_title: "2. Generowanie przez AI",
+    how_2_body: "Treści są przygotowywane przez Claude AI z wyraźnymi odwołaniami do źródeł i uporządkowaną strukturą medyczną.",
+    how_3_title: "3. Automatyczna weryfikacja",
+    how_3_body: "Nasz system weryfikacji wyodrębnia każde twierdzenie faktograficzne i sprawdza je z cytowanymi źródłami — automatycznie, przed publikacją.",
+    how_4_title: "4. Weryfikacja przez ekspertów",
+    how_4_body: "Wybrane artykuły są sprawdzane i zatwierdzane przez licencjonowanych profesjonalistów medycznych i oznaczane plakietką weryfikacji.",
+    team_title: "Zespół",
+    team_body: "MedMind AI zostało założone w 2025 roku przez zespół lekarzy, inżynierów oprogramowania i badaczy AI. Budujemy infrastrukturę dla wiarygodnej edukacji medycznej wspieranej przez sztuczną inteligencję.",
+    cta_title: "Zacznij naukę za darmo",
+    cta_btn: "Załóż darmowe konto",
   },
   ru: {
     meta_title: "О проекте MedMind AI — платформа медицинского образования",
@@ -401,6 +438,33 @@ const EDITORIAL: Record<TrustLocale, Omit<EditorialT, keyof TrustT>> = {
     feedback_title: "Reporting Errors",
     feedback_body: "Every public article has a 'Report an error' button. Reports are reviewed by our editorial team within 5 business days. If an error is confirmed, the article is hidden from public access until corrected and re-verified.",
   },
+  pl: {
+    meta_title: "Polityka redakcyjna — MedMind AI",
+    meta_desc: "Jak MedMind AI tworzy, weryfikuje i aktualizuje treści medyczne: hierarchia źródeł, generowanie przez AI, automatyczna weryfikacja i recenzja ekspertów.",
+    hero_title: "Polityka redakcyjna",
+    hero_sub: "Jak tworzymy, weryfikujemy i aktualizujemy każdą treść medyczną w MedMind AI.",
+    sources_title: "Hierarchia źródeł",
+    sources_body: "Wszystkie treści w MedMind AI opierają się na ścisłej hierarchii dowodów:",
+    sources_tier1: "Poziom 1 — Wytyczne kliniczne i oficjalne zalecenia (WHO, NICE, AHA, ACC, ESC, CDC, EMA, krajowe instytucje zdrowia). To główne źródło zaleceń klinicznych.",
+    sources_tier2: "Poziom 2 — Przeglądy systematyczne i metaanalizy z recenzowanych czasopism (NEJM, The Lancet, BMJ, JAMA, Cochrane). Służą do potwierdzania danych statystycznych.",
+    sources_tier3: "Poziom 3 — Pojedyncze randomizowane badania kontrolowane i badania obserwacyjne. Przywoływane tylko wtedy, gdy brak źródeł z poziomów 1–2, i wyraźnie oznaczane. Nigdy nie przedstawiamy pojedynczego badania jako ustalonego konsensusu.",
+    generation_title: "Generowanie wspierane przez AI",
+    generation_body: "Artykuły są przygotowywane przez Claude AI (Anthropic) według ścisłych instrukcji wymagających podania źródła dla każdego twierdzenia faktograficznego. AI ma używać ostrożnych sformułowań przy wynikach pojedynczych badań („badanie wykazało…”, a nie „udowodniono, że…”), podawać dawki wyłącznie na podstawie oficjalnych charakterystyk produktów leczniczych i zaznaczać obszary trwającej debaty klinicznej.",
+    verification_title: "Automatyczna weryfikacja (system V4)",
+    verification_body: "Przed publikacją każdy artykuł przechodzi przez nasz automatyczny system sprawdzania twierdzeń:",
+    verification_steps: [
+      "Wyodrębnianie twierdzeń: Claude Haiku wyodrębnia wszystkie weryfikowalne twierdzenia (statystyki, dawki, zależności przyczynowe, zalecenia kliniczne)",
+      "Porównanie ze źródłami: każde twierdzenie jest sprawdzane ze źródłami podanymi w artykule — system pobiera źródło i pyta Haiku: „czy to źródło potwierdza to twierdzenie?”",
+      "Werdykt: „tak/częściowo” dla wszystkich twierdzeń → status = passed; jakiekolwiek „nie” → status = failed, artykuł zostaje ukryty publicznie",
+      "Na stronach publicznych i w mapach witryny pojawiają się wyłącznie artykuły ze statusem „passed” lub „human_reviewed”",
+    ],
+    human_review_title: "Recenzja ekspertów",
+    human_review_body: "Artykuły na popularne tematy lub dotyczące złożonych decyzji klinicznych są recenzowane przez licencjonowanych profesjonalistów medycznych. Zrecenzowany artykuł otrzymuje status weryfikacji „human_reviewed”, a na jego stronie wyświetlane są kwalifikacje recenzenta. Profile recenzentów są publikowane pod adresem /reviewers/[slug].",
+    updates_title: "Aktualizacje treści",
+    updates_body: "Wiedza medyczna się zmienia. Artykuły są kierowane do ponownej weryfikacji, gdy: (1) nasz system wiadomości wykryje aktualizację wytycznych, (2) użytkownicy zgłoszą błąd przyciskiem opinii, (3) zaplanowana ponowna weryfikacja się nie powiedzie. Zaktualizowana treść przechodzi pełną weryfikację przed ponowną publikacją.",
+    feedback_title: "Zgłaszanie błędów",
+    feedback_body: "Każdy publiczny artykuł ma przycisk „Zgłoś błąd”. Zgłoszenia są rozpatrywane przez nasz zespół redakcyjny w ciągu 5 dni roboczych. Jeśli błąd się potwierdzi, artykuł zostaje ukryty do czasu poprawienia i ponownej weryfikacji.",
+  },
   ru: {
     meta_title: "Редакционная политика — MedMind AI",
     meta_desc: "Как MedMind AI создаёт, проверяет и обновляет медицинский контент: иерархия источников, генерация ИИ, автоматическая верификация и человеческая рецензия.",
@@ -585,6 +649,25 @@ const DISCLAIMER_DATA: Record<TrustLocale, Omit<DisclaimerT, keyof TrustT>> = {
     liability_body: "MedMind AI and its operators, authors, and contributors accept no liability for any harm, loss, or damages arising from reliance on information provided on this platform. Use of this platform is entirely at the user's own risk.",
     contact_note: "Questions about this disclaimer? Contact us at legal@medmind.pro",
   },
+  pl: {
+    meta_title: "Zastrzeżenia medyczne — MedMind AI",
+    meta_desc: "MedMind AI to platforma edukacyjna. Przeczytaj pełne zastrzeżenia medyczne dotyczące korzystania z treści w tym serwisie.",
+    hero_title: "Zastrzeżenia medyczne",
+    hero_sub: "Przeczytaj uważnie te zastrzeżenia, zanim skorzystasz z jakichkolwiek informacji medycznych w MedMind AI.",
+    not_advice_title: "To nie jest porada medyczna",
+    not_advice_body: "Wszystkie treści w MedMind AI — w tym artykuły, informacje o lekach, przypadki kliniczne, moduły edukacyjne i odpowiedzi generowane przez AI — służą wyłącznie celom edukacyjnym i informacyjnym. Nie stanowią porady medycznej, diagnozy ani planu leczenia i nie zastępują konsultacji z wykwalifikowanym, uprawnionym profesjonalistą medycznym.",
+    emergency_title: "Nagłe przypadki",
+    emergency_body: "W nagłym przypadku medycznym natychmiast zadzwoń pod numer alarmowy (112 w UE, 999 w Polsce lub lokalny odpowiednik). Nie polegaj na tej platformie w sytuacjach zagrożenia.",
+    accuracy_title: "Dokładność i aktualność",
+    accuracy_body: "Staramy się przekazywać dokładne informacje oparte na dowodach, ale wiedza medyczna stale się zmienia. Treści mogą nie uwzględniać najnowszych wytycznych, rejestracji leków ani wyników badań. Zawsze sprawdzaj informacje kliniczne z aktualnymi oficjalnymi wytycznymi i charakterystykami produktów leczniczych.",
+    professional_title: "Dla profesjonalistów medycznych",
+    professional_body: "Treści w MedMind AI są przeznaczone przede wszystkim do celów edukacyjnych dla profesjonalistów medycznych. Nawet dla wykwalifikowanych klinicystów przedstawione informacje nie zastępują oceny klinicznej, indywidualnej oceny pacjenta ani konsultacji ze specjalistami.",
+    dosing_title: "Dawkowanie leków i protokoły",
+    dosing_body: "Dawki leków, przeciwwskazania, interakcje i protokoły kliniczne podane na tej platformie mają charakter wyłącznie edukacyjny. Przed podjęciem jakiejkolwiek decyzji klinicznej zawsze sprawdź dawki i protokoły w aktualnych charakterystykach produktów leczniczych, lokalnych receptariuszach i wytycznych placówki.",
+    liability_title: "Ograniczenie odpowiedzialności",
+    liability_body: "MedMind AI oraz jego operatorzy, autorzy i współtwórcy nie ponoszą odpowiedzialności za jakiekolwiek szkody lub straty wynikające z polegania na informacjach udostępnionych na tej platformie. Korzystasz z platformy wyłącznie na własne ryzyko.",
+    contact_note: "Pytania dotyczące tych zastrzeżeń? Napisz do nas: legal@medmind.pro",
+  },
   ru: {
     meta_title: "Медицинский дисклеймер — MedMind AI",
     meta_desc: "MedMind AI — образовательная платформа. Прочитайте наш полный медицинский дисклеймер.",
@@ -717,6 +800,21 @@ const CONTACT_DATA: Record<TrustLocale, Omit<ContactT, keyof TrustT>> = {
     phone_label: "Phone",
     email_label: "Email",
   },
+  pl: {
+    meta_title: "Kontakt z MedMind AI",
+    meta_desc: "Skontaktuj się z założycielem lub firmą MedMind AI w sprawie współpracy, zapytań lub uwag dotyczących treści.",
+    hero_title: "Kontakt",
+    hero_sub: "Jesteśmy małym, skupionym zespołem. Czytamy każdą wiadomość.",
+    founder_title: "Założyciel",
+    company_title: "Firma",
+    partnership_title: "Współpraca i integracje",
+    partnership_email: "partners@medmind.pro",
+    feedback_title: "Uwagi do treści",
+    feedback_body: "Znalazłeś błąd w artykule medycznym? Użyj przycisku „Zgłoś błąd” na stronie artykułu — to najszybsza droga.",
+    response_note: "Staramy się odpowiadać w ciągu 2–3 dni roboczych.",
+    phone_label: "Telefon",
+    email_label: "E-mail",
+  },
   ru: {
     meta_title: "Контакты MedMind AI",
     meta_desc: "Свяжитесь с основателем или компанией MedMind AI по вопросам партнёрства или обратной связи.",
@@ -812,7 +910,7 @@ const CONTACT_DATA: Record<TrustLocale, Omit<ContactT, keyof TrustT>> = {
 // ── Public accessors ──────────────────────────────────────────────────────────
 
 function locale(raw: string | undefined): TrustLocale {
-  const SUPPORTED: TrustLocale[] = ["en", "ru", "ar", "tr", "de", "fr", "es"];
+  const SUPPORTED: TrustLocale[] = ["en", "ru", "ar", "tr", "de", "fr", "es", "pl"];
   return (SUPPORTED.includes(raw as TrustLocale) ? raw : "en") as TrustLocale;
 }
 
